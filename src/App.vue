@@ -40,19 +40,30 @@ export default {
       console.log("addFolder", node, label);
       // put your code here
 
-    
+      if (!node.children) {
+        this.$set(node, "children", []);
+      }
+      node.children.push({ id: Date.now(), label, children: [] });
     },
     addFile(node, label) {
       console.log("addFile", node, label);
       // put your code here
 
-      
+      if (!node.children) {
+        this.$set(node, "children", []);
+      }
+      node.children.push({ id: Date.now(), label, children: [] });
     },
     deleteNode(node) {
       console.log("deleteNode", node);
       // put your code here
 
-     
+      const parentNode = this.findParentNode(this.node, node);
+      if (parentNode) {
+        parentNode.children = parentNode.children.filter(
+          (child) => child.id !== node.id
+        );
+      }
     },
 
     

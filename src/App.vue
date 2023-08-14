@@ -66,7 +66,20 @@ export default {
       }
     },
 
-    
+    findParentNode(currentNode, targetNode) {
+      if (currentNode.children && currentNode.children.length > 0) {
+        for (const child of currentNode.children) {
+          if (child === targetNode) {
+            return currentNode;
+          }
+          const found = this.findParentNode(child, targetNode);
+          if (found) {
+            return found;
+          }
+        }
+      }
+      return null;
+    },
   },
 };
 </script>
